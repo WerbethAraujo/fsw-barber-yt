@@ -1,0 +1,68 @@
+import { Button } from "@/app/_components/ui/button";
+import { db } from "@/app/_lib/prisma";
+import { ChevronLeftIcon, MapPinIcon, MenuIcon, StarIcon } from "lucide-react";
+import Image from "next/image";
+
+interface BarbeshopDatailspageProps {
+  params: {
+    id?: string;
+  };
+}
+
+const BarbeshopDatailspage = async ({ params }: BarbeshopDatailspageProps) => {
+  if (!params.id) {
+    return null;
+  }
+
+  const barbershop = await db.barbershop.findUnique({
+    where: {
+      id: params.id,
+    },
+  });
+
+  if (!barbershop) {
+    return null;
+  }
+  return (
+    <div>
+      <div className="relative h-[250px] w-full">
+        <Button
+          size="icon"
+          variant="outline"
+          className="absolute left-4 top-4 z-50"
+        >
+          <ChevronLeftIcon />
+        </Button>
+        <Button
+          size="icon"
+          variant="outline"
+          className="absolute right-4 top-4 z-50"
+        >
+          <MenuIcon />
+        </Button>
+        <Image
+          className="opacity-75"
+          src={barbershop.imageUrl}
+          alt={barbershop.name}
+          fill
+          style={{
+            objectFit: "cover",
+          }}
+        />
+      </div>
+      <div className="border-b border-solid border-secondary px-5 pb-6 pt-3">
+        <h1 className="text-xl font-bold">{barbershop.name}</h1>
+        <div className="mt-2 flex items-center gap-2">
+          <MapPinIcon size={18} className="text-primary" />
+          <p className="text-sm">{barbershop.address}</p>
+        </div>
+        <div className="mt-2 flex items-center gap-2">
+          <StarIcon size={18} className="text-primary" />
+          <p className="text-sm">5,0 (689 avaliações)</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default BarbeshopDatailspage;

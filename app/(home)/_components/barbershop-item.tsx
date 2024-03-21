@@ -43,7 +43,7 @@ const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
             {barbershop.address}
           </p>
           <Button
-            onClick={() => handleBookingClick()}
+            onClick={handleBookingClick}
             className="mt-3 w-full"
             variant="secondary"
           >

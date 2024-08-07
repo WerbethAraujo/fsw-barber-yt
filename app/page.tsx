@@ -3,6 +3,9 @@ import Header from "./_components/header"
 import { Button } from "./_components/ui/button"
 import { Input } from "./_components/ui/input"
 import Image from "next/image"
+import { Card, CardContent } from "./_components/ui/card"
+import { Badge } from "./_components/ui/badge"
+import { Avatar, AvatarImage } from "./_components/ui/avatar"
 
 export default function Home() {
   return (
@@ -18,7 +21,7 @@ export default function Home() {
             <SearchIcon />
           </Button>
         </div>
-        <div className="relative mt-6 h-[150px] w-full">
+        <div className="w-full] relative m-0 mt-6 h-[150px]">
           <Image
             src="/banner-01.png"
             fill
@@ -26,6 +29,28 @@ export default function Home() {
             alt="banner fsw barber"
           />
         </div>
+        <h2 className="mt-6 text-xs font-bold uppercase text-gray-400">
+          Agendamentos
+        </h2>
+        <Card className="mt-6">
+          <CardContent className="flex justify-between p-0">
+            <div className="flex flex-col gap-2 py-5 pl-5">
+              <Badge className="w-fit">Confirmado</Badge>
+              <h3 className="font-semibold">Corte de Cabelo</h3>
+              <div className="flex items-center gap-2">
+                <Avatar className="h-6 w-6">
+                  <AvatarImage src="https://utfs.io/f/0522fdaf-0357-4213-8f52-1d83c3dcb6cd-18e.png" />
+                </Avatar>
+                <p className="text-sm">Barbearia WAS</p>
+              </div>
+            </div>
+            <div className="flex flex-col items-center justify-center gap-2 border-l-2 border-solid px-5">
+              <p className="text-sm">Agosto</p>
+              <p className="text-2xl">05</p>
+              <p className="text-sm">20:00</p>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </>
   )

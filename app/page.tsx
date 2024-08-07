@@ -65,7 +65,26 @@ export default async function Home() {
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>
+
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+          Populares
+        </h2>
+        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {barbershops.map((barbershop) => (
+            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+          ))}
+        </div>
       </div>
+      <footer>
+        <Card>
+          <CardContent className="px-5 py-6">
+            <p className="text-sm text-gray-400">
+              &copy; 2024 Copyright{" "}
+              <span className="font-bold">FSW barber</span>
+            </p>
+          </CardContent>
+        </Card>
+      </footer>
     </>
   )
 }

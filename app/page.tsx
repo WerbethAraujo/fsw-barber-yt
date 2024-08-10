@@ -17,7 +17,7 @@ export default async function Home() {
     <>
       <Header />
       <div className="p-5">
-        <h2 className="text-xl font-bold">Olá, Werbeth!</h2>
+        <h2 className="text-xl font-bold">Olá, Anthony!</h2>
         <p>Segunda-feira, 05 de Agosto.</p>
 
         <div className="mt-6 flex items-center gap-2">

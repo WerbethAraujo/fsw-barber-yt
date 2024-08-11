@@ -6,6 +6,7 @@ import BarbershopItem from "./_components/barbershopItem"
 import { quickSearchItems } from "./_constants/quickSearchItems"
 import BookingItem from "./_components/bookingItem"
 import Search from "./_components/search"
+import Link from "next/link"
 
 export default async function Home() {
   // chamando os dados do baco
@@ -24,14 +25,21 @@ export default async function Home() {
 
         <div className="flex items-center gap-3 overflow-x-scroll pt-5 [&::-webkit-scrollbar]:hidden">
           {quickSearchItems.map((item) => (
-            <Button className="gap-2" variant="secondary" key={item.title}>
-              <Image
-                src={item.imageUrl}
-                width={16}
-                height={16}
-                alt="categoria cabelo"
-              />
-              {item.title}
+            <Button
+              className="flex gap-2"
+              variant="secondary"
+              key={item.title}
+              asChild
+            >
+              <Link href={`/barbershops?service=${item.title}`}>
+                <Image
+                  src={item.imageUrl}
+                  width={16}
+                  height={16}
+                  alt="categoria cabelo"
+                />
+                {item.title}
+              </Link>
             </Button>
           ))}
         </div>

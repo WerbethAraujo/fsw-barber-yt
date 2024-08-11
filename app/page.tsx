@@ -1,12 +1,11 @@
-import { SearchIcon } from "lucide-react"
 import Header from "./_components/header"
 import { Button } from "./_components/ui/button"
-import { Input } from "./_components/ui/input"
 import Image from "next/image"
 import { db } from "./_lib/prisma"
 import BarbershopItem from "./_components/barbershopItem"
 import { quickSearchItems } from "./_constants/quickSearchItems"
 import BookingItem from "./_components/bookingItem"
+import Search from "./_components/search"
 
 export default async function Home() {
   // chamando os dados do baco
@@ -19,12 +18,8 @@ export default async function Home() {
       <div className="p-5">
         <h2 className="text-xl font-bold">Olá, Anthony!</h2>
         <p>Segunda-feira, 05 de Agosto.</p>
-
-        <div className="mt-6 flex items-center gap-2">
-          <Input className="outline-none" placeholder="Buscar Barbearia..." />
-          <Button>
-            <SearchIcon />
-          </Button>
+        <div className="mt-6">
+          <Search />
         </div>
 
         <div className="flex items-center gap-3 overflow-x-scroll pt-5 [&::-webkit-scrollbar]:hidden">

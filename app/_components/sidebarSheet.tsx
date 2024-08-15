@@ -7,14 +7,7 @@ import Link from "next/link"
 import { CalendarIcon, HomeIcon, LogInIcon, LogOutIcon } from "lucide-react"
 import { quickSearchItems } from "../_constants/quickSearchItems"
 import Image from "next/image"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "./ui/dialog"
+import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog"
 import { signOut, useSession } from "next-auth/react"
 import SignInDialog from "./sinInDialog"
 
@@ -95,16 +88,18 @@ const SidebarSheet = () => {
           </SheetClose>
         ))}
       </div>
-      <div className="flex flex-col gap-2 p-5">
-        <Button
-          variant="ghost"
-          className="justify-start gap-2"
-          onClick={handleLogoutClick}
-        >
-          <LogOutIcon size={18} />
-          Sair
-        </Button>
-      </div>
+      {data?.user && (
+        <div className="flex flex-col gap-2 p-5">
+          <Button
+            variant="ghost"
+            className="justify-start gap-2"
+            onClick={handleLogoutClick}
+          >
+            <LogOutIcon size={18} />
+            Sair
+          </Button>
+        </div>
+      )}
     </SheetContent>
   )
 }

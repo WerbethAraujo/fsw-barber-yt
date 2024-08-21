@@ -16,7 +16,7 @@ export const quickSearchItems: QuickSearchItems[] = [
 
   {
     imageUrl: "/gilete-icon.svg",
-    title: "Gilete",
+    title: "Acabamento",
   },
 
   {

@@ -15,7 +15,7 @@ import { Calendar } from "./ui/calendar"
 
 import { ptBR } from "date-fns/locale"
 import { useEffect, useMemo, useState } from "react"
-import { format, isPast, isToday, set } from "date-fns"
+import { isPast, isToday, set } from "date-fns"
 import { useSession } from "next-auth/react"
 import { createBooking } from "../_actions/createBooking"
 import { toast } from "sonner"
@@ -23,6 +23,7 @@ import { GetBookings } from "../_actions/getBookings"
 import { Dialog, DialogContent } from "./ui/dialog"
 import SignInDialog from "./sinInDialog"
 import BookingSummary from "./bookingSummary"
+import { useRouter } from "next/navigation"
 
 interface ServiceItemItemProps {
   service: BarbershopService
@@ -88,6 +89,8 @@ const ServiceItem = ({ service, barbershop }: ServiceItemItemProps) => {
     undefined,
   )
 
+  const router = useRouter()
+
   const [dayBookings, setDayBookings] = useState<Booking[]>([])
   const [bookingSheetIsOpen, setBookingSheetIsOpen] = useState(false)
 
@@ -143,7 +146,12 @@ const ServiceItem = ({ service, barbershop }: ServiceItemItemProps) => {
         serviceId: service.id,
         date: selectedDate,
       })
-      toast.success("Reserva criada com sucesso!")
+      toast.success("Reserva criada com sucesso!", {
+        action: {
+          label: "Ver Agendamentos",
+          onClick: () => router.push("/bookings"),
+        },
+      })
     } catch (error) {
       console.log(error)
       toast.error("Erro ao criar reserva!")

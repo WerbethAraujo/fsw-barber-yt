@@ -22,6 +22,7 @@ import { toast } from "sonner"
 import { GetBookings } from "../_actions/getBookings"
 import { Dialog, DialogContent } from "./ui/dialog"
 import SignInDialog from "./sinInDialog"
+import BookingSummary from "./bookingSummary"
 
 interface ServiceItemItemProps {
   service: BarbershopService
@@ -103,6 +104,15 @@ const ServiceItem = ({ service, barbershop }: ServiceItemItemProps) => {
     fetch()
   }, [selectedDay, service.id])
 
+  const selectedDate = useMemo(() => {
+    if (!selectedDay || !selectedTime) return
+
+    return set(selectedDay, {
+      hours: Number(selectedTime.split(":")[0]),
+      minutes: Number(selectedTime.split(":")[1]),
+    })
+  }, [selectedDay, selectedTime])
+
   const handleBookingClick = () => {
     if (data?.user) {
       return setBookingSheetIsOpen(true)
@@ -127,19 +137,11 @@ const ServiceItem = ({ service, barbershop }: ServiceItemItemProps) => {
 
   const handleCreateBooking = async () => {
     try {
-      if (!selectedDay || !selectedTime) return
-
-      const hour = Number(selectedTime.split(":")[0])
-      const minute = Number(selectedTime.split(":")[1])
-
-      const newDate = set(selectedDay, {
-        hours: hour,
-        minutes: minute,
-      })
+      if (!selectedDate) return
 
       await createBooking({
         serviceId: service.id,
-        date: newDate,
+        date: selectedDate,
       })
       toast.success("Reserva criada com sucesso!")
     } catch (error) {
@@ -245,37 +247,13 @@ const ServiceItem = ({ service, barbershop }: ServiceItemItemProps) => {
                       )}
                     </div>
                   )}
-                  {selectedTime && selectedDay && (
+                  {selectedDate && (
                     <div className="p-5">
-                      <Card>
-                        <CardContent className="space-y-3 p-3">
-                          <div className="flex items-center justify-between">
-                            <h2 className="font-bold">{service.name}</h2>
-                            <p className="text-sm font-bold">
-                              {Intl.NumberFormat("pt-BR", {
-                                style: "currency",
-                                currency: "BRL",
-                              }).format(Number(service.price))}
-                            </p>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <h2 className="text-sm text-gray-400">Data</h2>
-                            <p className="text-sm">
-                              {format(selectedDay, "d 'de' MMM", {
-                                locale: ptBR,
-                              })}
-                            </p>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <h2 className="text-sm text-gray-400">Horário</h2>
-                            <p className="text-sm">{selectedTime}</p>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <h2 className="text-sm text-gray-400">Barbearia</h2>
-                            <p className="text-sm">{barbershop.name}</p>
-                          </div>
-                        </CardContent>
-                      </Card>
+                      <BookingSummary
+                        barbershop={barbershop}
+                        service={service}
+                        selectedDate={selectedDate}
+                      />
                     </div>
                   )}
                   <SheetFooter className="mt-5 px-5">

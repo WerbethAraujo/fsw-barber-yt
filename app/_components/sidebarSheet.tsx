@@ -23,9 +23,10 @@ const SidebarSheet = () => {
       <SheetHeader>
         <SheetTitle className="text-left">Menu</SheetTitle>
       </SheetHeader>
-      <h2>Ola, Faça o seu login</h2>
 
-      <div className="flex items-center justify-between gap-3 border-b border-solid p-5">
+      {data?.user ? <h2>Ola, Bem vindo!</h2> : ""}
+
+      <div className="flex items-center justify-between gap-3 border-b border-solid p-3">
         {data?.user ? (
           <div className="flex items-center gap-2">
             <Avatar className="flex justify-start gap-2">
@@ -38,7 +39,7 @@ const SidebarSheet = () => {
           </div>
         ) : (
           <>
-            <h2 className="font-bold">Olá, faça seu login</h2>
+            <h2 className="font-bold">Olá, Faça seu login</h2>
             <Dialog>
               <DialogTrigger asChild>
                 <Button size="icon">
